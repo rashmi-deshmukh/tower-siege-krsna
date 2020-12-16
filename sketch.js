@@ -1,63 +1,45 @@
 const Engine = Matter.Engine;
-const World= Matter.World;
+const World = Matter.World;
 const Bodies = Matter.Bodies;
-const Constraint = Matter.Constraint;
+const Body = Matter.Body;
+const Render = Matter.Render;
+const Constraint=Matter.Constraint;
 
-var engine, world;
+var base1;
+var block1;
 
 
-function preload() 
-{
-    
+
+function setup() {
+	createCanvas(1300, 600);
+	engine = Engine.create();
+	world = engine.world;
+
+	base1 = new Ground(550,530,400,5);
+	block1 = new Block(550,525,100,5);
+
+	Engine.run(engine);
+
 }
 
-function setup(){
-    var canvas = createCanvas(1400,800);
-    engine = Engine.create();
-    world = engine.world;
-    
-    ground=new Ground(600,780,1400,20)
-    ground1=new Ground(600,500,400,20)
-    //create ground 2
+function draw() {
+	background(230);
 
+	base1.display();
+	block1.display();
 
-
-    // draw the boxes
-    box1= new Box(500, 450,50,50)
-
-
-    hex = new Hex(135,415);
-    sling= new Sling(hex.body, {x:140, y:415});
 }
 
-function draw(){
-    background("white");
-    Engine.update(engine);
-    
-    ground.display();
-    hex.display();
-    sling.display();
-    ground1.display();
+function mouseDragged(){
 
-    fill("red")
-    box1.display();
 }
+
+function mouseReleased(){
+	
+}
+
 function keyPressed(){
-
-    if(keyCode===32){
-        Matter.Body.setPosition(hex.body, {x:400,y:200})//changed
-        sling.attach(hex.body);
-    }
+	if(keyCode==32){
+		
+	}
 }
-
-
-function mouseDragged()
-{
-    Matter.Body.setPosition(hex.body, {x:mouseX, y:mouseY} )    
-}
-
-function mouseReleased()
-{
-    sling.fly();
-}
-
